@@ -428,6 +428,16 @@
       50% { transform: translateY(-10px); }
     }
 
+    /* === TEXT JUSTIFICATION & HYPHENATION === */
+    p, .about-card ul li {
+      text-align: justify;
+      
+      /* Ye lines lafzon ke beech extra space ko kam karti hain */
+      -webkit-hyphens: auto; /* For older Chrome/Safari */
+      -ms-hyphens: auto;    /* For older IE/Edge */
+      hyphens: auto;        /* Standard property */
+    }
+
     /* === RESPONSIVE STYLES === */
     
     /* For tablets */
