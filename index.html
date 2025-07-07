@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>M.Shah Fahad | Portfolio</title>
+  <link rel="icon" href="assets/img/favicon.png" type="image/x-icon" />
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #121212; /* Darker background from image */
+      color: #fff;
+      overflow-x: hidden; /* Prevents horizontal scroll */
+    }
+
+    body.light-mode {
+      background-color: #f5f5f5;
+      color: #111;
+    }
+
+    /* === NEW NAVBAR STYLE === */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(18, 18, 18, 0.7); /* Matching the dark theme */
+      backdrop-filter: blur(10px);
+      padding: 15px 8%; /* Increased padding */
+      z-index: 999;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: background 0.3s ease;
+    }
+    
+    .nav-brand {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: white;
+        text-decoration: none;
+    }
+
+     .navName{
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: white;
+        text-decoration: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    nav ul li a,
+    nav ul li button {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+    
+    body.light-mode nav {
+        background: rgba(255, 255, 255, 0.7);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    body.light-mode .nav-brand,
+    body.light-mode .navName {
+        color: #111;
+    }
+
+    body.light-mode nav ul li a,
+    body.light-mode nav ul li button {
+      color: #111;
+    }
+
+    nav ul li a:hover,
+    nav ul li button:hover {
+      color: #0dcaf0;
+    }
+    
+    nav ul li button i {
+        font-size: 1.2rem; /* Icon size */
+    }
+
+    .hamburger {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        z-index: 1001; /* Ensure it is clickable */
+    }
+    body.light-mode .hamburger {
+        color: #111;
+    }
+
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 8%;
+      position: relative;
+      text-align: left;
+    }
+    
+    /* Curved background shape on the right */
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 48%; /* Covers roughly half the page */
+        height: 100%;
+        background-color: #1e1e1e; /* The slightly lighter background color */
+        border-bottom-left-radius: 12vw; /* The curve */
+        z-index: 0;
+        transition: all 0.5s ease;
+    }
+
+    .hero-content {
+        z-index: 2;
+        flex: 1;
+        max-width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* vertically center */
+        align-items: center;     /* horizontally center */
+        text-align: center;      /* center text alignment */
+        height: 100%;            /* take full height of parent */
+        margin-top: 80px;
+    }
+    
+    .hero-image {
+        z-index: 1;
+        flex: 1;
+        display: flex;
+        justify-content: center; /* This was changed from flex-end to center */
+        align-items: center;
+        height: 100%;
+    }
+
+    .hero-image img {
+        width: 28vw;
+        height: auto;
+        object-fit: contain;
+        align-self: flex-end;
+    }
+
+    .hero h1 {
+      font-size: 3.0rem; /* Large font size from image */
+      font-weight: 600;
+      animation: none; /* Removing old animation */
+    }
+    
+    /* Subtitle (typewriter) styles */
+    .hero #typewriter {
+      font-size: 1.5rem;
+      margin-top: 10px;
+      color: #ccc;
+      animation: none;
+      min-height: 2.2rem; /* Reserve space to avoid layout jump */
+    }
+    
+    /* Hide old static paragraph */
+    .hero > p {
+        display: none;
+    }
+
+    .scroll-indicator {
+      margin-top: 150px;
+      font-size: 1rem;
+      animation: bounce 2s infinite;
+      color: #888;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .scroll-indicator i {
+        font-size: 1.5rem;
+    }
+
+    .section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 100px 20px;
+    }
+
+    .section h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+    }
+
+    .about-card {
+      background: #1f1f1f;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    body.light-mode .about-card,
+    body.light-mode .contact-box {
+      background: #fff;
+      color: #111;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr); /* This line forces 5 columns */
+      gap: 20px;
+      margin-top: 30px;
+      justify-items: center;
+    }
+
+    .skills-grid img {
+      width: 50px;
+    }
+
+    .project {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 40px;
+      margin-bottom: 80px;
+    }
+
+    .project img {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    .project-content {
+      flex: 1;
+    }
+
+    .tags span {
+      background: #333;
+      padding: 5px 10px;
+      border-radius: 20px;
+      margin: 5px;
+      display: inline-block;
+    }
+
+    body.light-mode .tags span {
+      background: #ddd;
+      color: #000;
+    }
+
+    .contact-box {
+      text-align: center;
+      padding: 40px;
+      background: #1f1f1f;
+      border-radius: 20px;
+    }
+
+    .contact-box button {
+      margin-left: 10px;
+      padding: 10px 20px;
+      border: none;
+      background: #0dcaf0;
+      color: #000;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .social-bar {
+      position: fixed;
+      top: 50%;
+      left: 40px; /* Moved slightly right from edge */
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      z-index: 999;
+      transition: all 0.3s ease;
+    }
+
+    .social-bar a {
+      color: #aaa;
+      font-size: 1.5rem;
+      transition: 0.3s;
+    }
+
+    .social-bar a:hover {
+      color: #0dcaf0;
+    }
+
+    body.light-mode .social-bar a {
+      color: #333;
+    }
+     body.light-mode .social-bar {
+        background: rgba(255, 255, 255, 0.8);
+    }
+
+
+    .scroll-top {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background: #fff;
+      color: #000;
+      padding: 10px;
+      border-radius: 50%;
+      display: none;
+      z-index: 999;
+      cursor: pointer;
+    }
+
+    /* Modal */
+    #modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .modal-content {
+      background: #1f1f1f;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 600px;
+      width: 90%;
+      color: white;
+      position: relative;
+    }
+
+    .modal-content .close {
+      position: absolute;
+      top: 10px; right: 20px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    
+    /* Animation keyframes (unchanged) */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* === RESPONSIVE STYLES === */
+    
+    /* For tablets */
+    @media (max-width: 992px) {
+        nav {
+            padding: 15px 4%;
+        }
+        .hero {
+            padding: 0 4%;
+            flex-direction: column-reverse; /* Stack image over text */
+            justify-content: center;
+            height: auto;
+            padding-top: 120px;
+            padding-bottom: 80px;
+            text-align: center;
+        }
+        .hero::before {
+             display: none; /* Hide shape on tablets/mobile */
+        }
+        .hero-content, .hero-image {
+            max-width: 100%;
+            height: auto;
+        }
+         .hero-image img {
+            width: 40vw;
+            align-self: center;
+            margin-bottom: 40px;
+        }
+         .hero h1 { font-size: 2.5rem; }
+        .hero #typewriter { font-size: 1.3rem; }
+
+        .project {
+            flex-direction: column;
+            text-align: center;
+        }
+        .project-content {
+            margin-top: 20px;
+        }
+        .skills-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    /* For mobile phones */
+    @media (max-width: 768px) {
+        nav ul {
+            position: absolute;
+            top: 71px; /* Navbar height */
+            right: 0;
+            width: 100%;
+            background: rgba(28, 28, 28, 0.95);
+            backdrop-filter: blur(10px);
+            flex-direction: column;
+            text-align: center;
+            gap: 0;
+            max-height: 0; /* Animate the dropdown */
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+
+        body.light-mode nav ul {
+            background: rgba(250, 250, 250, 0.95);
+        }
+
+        nav ul.active {
+            max-height: 500px; /* A large value to show all items */
+            padding-bottom: 20px;
+        }
+
+        nav ul li {
+            width: 100%;
+        }
+        
+        nav ul li a, nav ul li button {
+            padding: 15px 0;
+            display: block;
+            width: 100%;
+        }
+
+        .hamburger {
+            display: block; /* Show hamburger icon */
+        }
+
+        .hero-image img {
+            width: 55vw; /* Make image bigger on mobile */
+        }
+        
+        .section {
+            padding: 80px 20px;
+        }
+
+        .section h2 {
+            font-size: 2rem;
+        }
+
+        .skills-grid {
+            grid-template-columns: repeat(3, 1fr); /* 3 columns for mobile */
+        }
+
+        .about-card ul li {
+            text-align: left;
+        }
+
+        /* Move social bar to bottom center */
+        .social-bar {
+            top: auto;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            flex-direction: row;
+            background: rgba(31, 31, 31, 0.85);
+            padding: 8px 15px;
+            border-radius: 30px;
+        }
+         .scroll-top {
+            bottom: 80px; /* Move it up to not overlap social bar */
+        }
+    }
+     @media (max-width: 480px) {
+        .skills-grid {
+            grid-template-columns: repeat(2, 1fr); /* 2 columns for small mobile */
+        }
+        .skills-grid img { width: 45px; }
+        .hero h1 { font-size: 2rem; }
+        .hero #typewriter { font-size: 1.1rem; }
+        
+        .contact-box {
+            padding: 30px 20px;
+        }
+        .contact-box span {
+             display: block;
+             word-break: break-all;
+             margin-bottom: 15px;
+        }
+         .contact-box button {
+            width: 100%;
+            margin: 5px 0;
+        }
+
+         .modal-content {
+            padding: 20px;
+        }
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <a href="#home" class="navName">Muhammad Shah Fahad</a>
+    <button class="hamburger" id="hamburger-menu" aria-label="Toggle Menu">
+      <i class="fas fa-bars"></i>
+    </button>
+    <ul id="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="https://drive.google.com/file/d/1NH1bJuo9OF6JfquehM_iiEtVTWC4IOPQ/view?usp=sharing" target="_blank">Resume</a></li>
+      <li>
+        <button onclick="toggleTheme()" aria-label="Toggle Theme">
+          <i id="theme-toggle-icon" class="fas fa-moon"></i>
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Social Icons -->
+  <div class="social-bar">
+    <a href="https://www.linkedin.com/in/muhammad-shah-fahad-1117a2182" target="_blank"><i class="fab fa-linkedin"></i></a>
+    <a href="https://github.com/muhammadshah10" target="_blank"><i class="fab fa-github"></i></a>
+  </div>
+  
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>Hi, I'm Shah Fahad</h1>
+      <p id="typewriter"></p>
+      <div class="scroll-indicator">
+        scroll down <i class="fa-solid fa-computer-mouse"></i>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="assets/img/image.png" alt="A photo of Muhammad Shah Fahad">
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section" id="about">
+    <h2 data-aos="fade-up">About Me</h2>
+    <div class="about-card" data-aos="fade-up">
+      <p>Hello, I'm <strong>Muhammad Shah Fahad</strong>, a passionate and results-driven <strong>Mobile Apps Developer</strong> with over <strong>4 years of experience</strong> in building robust, user-friendly, and high-performance applications for both Android and iOS platforms.</p>
+
+      <p>I specialize in creating seamless mobile experiences with clean, maintainable code and strong UI/UX focus. My work spans the entire app lifecycle — from concept to deployment — with a commitment to quality and scalability.</p>
+
+      <p>Here’s what I bring to the table:</p>
+      <ul style="list-style-position: inside; padding-left: 20px; margin-top: 15px; text-align: left;">
+        <li style="margin-bottom: 10px;"><strong>Native Android Development:</strong> Expert in <strong>Kotlin</strong> and <strong>Java</strong>, crafting responsive layouts using <strong>XML</strong>, and managing efficient local storage via <strong>Room</strong> and <strong>SQLite</strong>.</li>
+        <li style="margin-bottom: 10px;"><strong>Cross-Platform Apps with Flutter:</strong> Skilled in <strong>Dart</strong> to deliver fast, visually engaging apps for both Android and iOS from a single codebase.</li>
+        <li style="margin-bottom: 10px;"><strong>Backend & API Integration:</strong> Experienced in integrating secure and scalable <strong>REST APIs</strong>, and working with databases like <strong>MySQL</strong>, <strong>PostgreSQL</strong>, and <strong>Firebase Realtime Database</strong>.</li>
+        <li style="margin-bottom: 10px;"><strong>Development Tools & Agile Workflow:</strong> Proficient in <strong>Android Studio</strong>, <strong>VSCode</strong>, and <strong>Xcode</strong>. I follow Agile methodologies to ensure fast iterations, effective communication, and on-time delivery.</li>
+      </ul>
+
+      <p>I’m always exploring new technologies and frameworks to deliver modern, scalable solutions that make a real impact.</p>
+
+      <div class="skills-grid">
+        <!-- Row 1 -->
+        <div style="text-align: center;">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java">
+          <p>Java</p>
+        </div>
+        <div style="text-align: center;">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" alt="Kotlin">
+          <p>Kotlin</p>
+        </div>
+        <div style="text-align: center;">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter">
+          <p>Flutter</p>
+        </div>
+        <div style="text-align: center;">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg" alt="Dart">
+          <p>Dart</p>
+        </div>
+        <div style="text-align: center;">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg" alt="Android">
+          <p>Android</p>
+        </div>
+
+        <!-- Row 2 -->
+         <div style="text-align: center;">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" alt="SQLite">
+          <p>SQLite</p>
+        </div>
+        <div style="text-align: center;">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase">
+          <p>Firebase</p>
+        </div>
+        <div style="text-align: center;">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original-wordmark.svg" alt="MySQL">
+          <p>MySQL</p>
+        </div>
+        <div style="text-align: center;">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL">
+          <p>PostgreSQL</p>
+        </div>
+        <div style="text-align: center;">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg" alt="Android Studio">
+          <p>Android Studio</p>
+        </div>
+
+        <!-- Row 3 -->
+         <div style="text-align: center;">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code">
+          <p>VS Code</p>
+        </div>
+        <div style="text-align: center;">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xcode/xcode-original.svg" alt="Xcode">
+          <p>Xcode</p>
+        </div>
+        <div style="text-align: center;">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="git">
+          <p>Git</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <!-- Projects Section -->
+  <section class="section" id="projects">
+    <h2 data-aos="fade-up">Projects</h2>
+    <div class="project" data-aos="fade-right">
+      <img src="assets/img/project1/feature.jpg" alt="Project 1" onclick="openModal('Net Shield App', 'NET Shield – Control Your Apps Internet Access!', 'assets/img/project1', 6, 'jpg')">
+      <div class="project-content">
+        <h3>Net Shield App</h3>
+        <p>NET Shield – Control Your Apps Internet Access! <br> Features: <br>
+          🔒 Block internet for selected apps <br>
+          📱 Simple and user-friendly <br>
+          📵 Boost focus by disabling distracting apps</p>
+        <div class="tags">
+          <span>Android</span><span>Java</span><span>Android UI Design</span>
+        </div>
+      </div>
+    </div>
+    <div class="project" data-aos="fade-left">
+      <img src="assets/img/project2/6.jpg" alt="Project 2" onclick="openModal('QR & Barcode Scanner', 'QR & Barcode Scanner app is efficient QR and Barcode Scanner app.', 'assets/img/project2', 5, 'webp')">
+      <div class="project-content">
+        <h3>QR & Barcode Scanner</h3>
+        <p>QR & Barcode Scanner app is efficient QR and Barcode Scanner app. You can easily scan QR and Barcodes using this app.</p>
+        <div class="tags">
+          <span>Kotlin</span><span>Android</span><span>SQLite</span>
+        </div>
+      </div>
+    </div>
+    <div class="project" data-aos="fade-right">
+      <img src="assets/img/project3/9.png" alt="Project 3" onclick="openModal('BOT ERP App', 'BOT ERP helps organizations manage daily operations efficiently.', 'assets/img/project3', 8, 'png')">
+      <div class="project-content">
+        <h3>BOT ERP App</h3>
+        <p>BOT ERP is a software that organizations use to manage daily business activities such as accounting, procurement, project management, risk management and compliance, and supply chain operations.</p>
+        <div class="tags">
+          <span>Flutter</span><span>Mobile App Development</span>
+        </div>
+      </div>
+    </div>
+    <div class="project" data-aos="fade-left">
+      <img src="assets/img/project4/1.png" alt="Project 4" onclick="openModal('Timesync SAAS App', 'Timesync SAAS - HR Technology to keep track of employee attendance reporting.', 'assets/img/project4', 1, 'png')">
+      <div class="project-content">
+        <h3>Timesync SAAS App</h3>
+        <p>Timesync SAAS - HR Technology to keep track of employee attendance reporting, stressfree payroll services, employee development to performance reviews, benefits, compliance and more.</p>
+        <div class="tags">
+          <span>Mobile App Development</span><span>Flutter</span>
+        </div>
+      </div>
+    </div>
+    <div class="project" data-aos="fade-right">
+      <img src="assets/img/project7/1.jpg" alt="Project 5" onclick="openModal('Master VPN - Fast & Secure', 'Master VPN is a 100% unlimited VPN app with global servers.', 'assets/img/project7', 1, 'jpg')">
+      <div class="project-content">
+        <h3>Master VPN - Fast & Secure</h3>
+        <p>Master VPN is a 100% unlimited, Master VPN that does not require any type of registration. We give you the freedom to be completely anonymous because all of your traffic is encrypted while Master VPN is on. Our advertising sponsors keep Master VPN free to our users, allowing us to operate the world's most reliable and independent network of global servers.</p>
+        <div class="tags">
+          <span>Java</span><span>Android</span><span>VPN</span>
+        </div>
+      </div>
+    </div>
+    <div class="project" data-aos="fade-left">
+      <img src="assets/img/project8/icon_2.png" alt="Project 6" onclick="openModal('Smart Goal - Habit Tracker', 'Smart Goal app provides 21-day healthy lifestyle challenges.', 'assets/img/project8', 7, 'png')">
+      <div class="project-content">
+        <h3>Smart Goal - Habit Tracker</h3>
+        <p>Smart Goal - Habit Tracker app provides you 21 days healthy life style challenges to improve your daily routines and achieve your daily goals. Habit tracker app raises your wellness being to improve your health, your healthy lifestyle and track your goal setter activities for better future. Guest user become a member to get full access of all features in track habit app.</p>
+        <div class="tags">
+          <span>Android</span><span>Java</span><span>Firebase</span>
+        </div>
+      </div>
+    </div>
+    <div class="project" data-aos="fade-left">
+      <img src="assets/img/project10/8.png" alt="Project 6" onclick="openModal('Expense & Budget Manager App', 'Expense tracker is a personal finance manager app.', 'assets/img/project10', 7, 'png')">
+      <div class="project-content">
+        <h3>Expense & Budget Manager App</h3>
+        <p>Expense tracker is a personal finance manager app built to help save money, financial planning and check all your finances records in one place. An expense tracker is a money manager to record your financial expenditure and transaction activities.</p>
+        <div class="tags">
+          <span>Android</span><span>Java</span><span>Firebase</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section" id="contact">
+    <h2 data-aos="fade-up">Get In Touch</h2>
+    <div class="contact-box" data-aos="fade-up">
+      <span id="email">shahfahadafridi10@gmail.com</span>
+      <button onclick="copyEmail()">Copy</button>
+      <button onclick="sendEmail()">Send Email</button>
+    </div>
+  </section>
+  <!-- Scroll Top -->
+  <div class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+  <!-- Project Modal -->
+  <div id="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">×</span>
+      <h3 id="modal-title">Project Title</h3>
+      <div id="modal-images" style="display: flex; overflow-x: auto; gap: 10px; margin-top: 20px; padding-bottom: 10px;"></div>
+      <p id="modal-desc" style="margin-top: 20px;">Project Description goes here...</p>
+    </div>
+  </div>
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+        once: true, // Whether animation should happen only once - while scrolling down
+        duration: 800 // values from 0 to 3000, with step 50ms
+    });
+
+    // --- Typewriter Effect ---
+    const texts = [
+        "Mobile Apps Developer",
+        "Flutter Developer",
+        "Native Android Expert",
+        "REST API Integrator",
+        "Firebase & SQLite Pro",
+        "Clean Code Specialist",
+        "Cross-Platform Coder",
+        "Agile Team Player",
+        "UI/UX Focused Developer",
+        "Tech Problem Solver"
+    ];
+
+    let textIndex = 0;
+    let charIndex = 0;
+    const typewriter = document.getElementById("typewriter");
+
+    function type() {
+      if (charIndex < texts[textIndex].length) {
+        typewriter.innerHTML += texts[textIndex].charAt(charIndex);
+        charIndex++;
+        setTimeout(type, 50);
+      } else {
+        setTimeout(erase, 1500); // Wait longer before erasing
+      }
+    }
+
+    function erase() {
+      if (charIndex > 0) {
+        typewriter.innerHTML = texts[textIndex].substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(erase, 30);
+      } else {
+        textIndex = (textIndex + 1) % texts.length; // Move to next text
+        setTimeout(type, 300); // Wait before typing next
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      if (typewriter) setTimeout(type, 500);
+    });
+    
+    // --- Hamburger Menu Logic ---
+    const hamburgerBtn = document.getElementById('hamburger-menu');
+    const navLinks = document.getElementById('nav-links');
+    const hamburgerIcon = hamburgerBtn.querySelector('i');
+
+    hamburgerBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        if (navLinks.classList.contains('active')) {
+            hamburgerIcon.classList.remove('fa-bars');
+            hamburgerIcon.classList.add('fa-times');
+        } else {
+            hamburgerIcon.classList.remove('fa-times');
+            hamburgerIcon.classList.add('fa-bars');
+        }
+    });
+
+    // Close menu when a link is clicked
+    document.querySelectorAll('#nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                hamburgerIcon.classList.remove('fa-times');
+                hamburgerIcon.classList.add('fa-bars');
+            }
+        });
+    });
+
+    // --- Utility Functions ---
+    function copyEmail() {
+      navigator.clipboard.writeText(document.getElementById("email").innerText)
+        .then(() => alert("Email copied!"));
+    }
+
+    function sendEmail() {
+      window.location.href = "mailto:" + document.getElementById("email").innerText;
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    window.onscroll = function () {
+      const btn = document.getElementById("scrollTopBtn");
+      if (btn) btn.style.display = window.scrollY > 300 ? "block" : "none";
+    }
+
+    // --- Theme Toggle ---
+    function toggleTheme() {
+      const body = document.body;
+      const icon = document.getElementById("theme-toggle-icon");
+      
+      body.classList.toggle("light-mode");
+      
+      if (body.classList.contains("light-mode")) {
+        icon.classList.remove("fa-moon");
+        icon.classList.add("fa-sun");
+      } else {
+        icon.classList.remove("fa-sun");
+        icon.classList.add("fa-moon");
+      }
+    }
+
+    // --- Modal Logic ---
+    function openModal(title, desc, folderPath, imageCount = 5, type = "jpg") {
+      document.getElementById("modal-title").innerText = title;
+      document.getElementById("modal-desc").innerText = desc;
+
+      const modalImages = document.getElementById("modal-images");
+      if (!modalImages) return;
+
+      modalImages.innerHTML = "";
+
+      for (let i = 1; i <= imageCount; i++) {
+        const img = document.createElement("img");
+        img.src = `${folderPath}/${i}.${type}`;
+        img.alt = `${title} - Image ${i}`;
+        img.style.height = "150px"; // Fixed height for consistency
+        img.style.width = "auto";
+        img.style.borderRadius = "10px";
+        img.style.cursor = "pointer";
+        img.style.flexShrink = "0";
+        img.style.objectFit = "cover";
+        modalImages.appendChild(img);
+      }
+
+      document.getElementById("modal").style.display = "flex";
+      document.body.style.overflow = 'hidden'; // Prevent background scroll
+    }
+
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+      document.body.style.overflow = 'auto'; // Restore background scroll
+    }
+  </script>
+</body>
+</html>
